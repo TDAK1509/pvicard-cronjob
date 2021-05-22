@@ -28,7 +28,8 @@ def get_pending_orders(access_token: str):
     api_url_vn = "https://api.lazada.vn/rest"
     client = lazop.LazopClient(api_url_vn, APP_KEY, APP_SECRET)
     request = lazop.LazopRequest("/orders/get", "GET")
-    request.add_api_param("status", "delivered")
+    request.add_api_param("status", "pending")
+    request.add_api_param("created_after", "2021-01-01T01:00:00+07:00")
     response = client.execute(request, access_token)
     return list(response["data"]["products"])
 
