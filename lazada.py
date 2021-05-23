@@ -31,7 +31,7 @@ def get_pending_orders(access_token: str):
     request.add_api_param("status", "pending")
     request.add_api_param("created_after", "2021-01-01T01:00:00+07:00")
     response = client.execute(request, access_token)
-    return list(response["data"]["products"])
+    return list(response["data"]["orders"])
 
 
 if __name__ == "__main__":
