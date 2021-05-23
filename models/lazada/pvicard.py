@@ -14,7 +14,6 @@ class PviCard:
         customer_name: str,
     ):
         request_url = "https://pvicard.com/api/merchant/sync-orders/lazada/"
-        request_url = "http://localhost:8000/api/merchant/sync-orders/test/"
 
         request_data = {
             "email": email,
