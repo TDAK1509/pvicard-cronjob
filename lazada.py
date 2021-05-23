@@ -9,7 +9,7 @@ from models.lazada.pvicard import PviCard
 LAZADA_APP_KEY = os.environ.get("LAZADA_APP_KEY", "dummy_api_key")
 LAZADA_APP_SECRET = os.environ.get("LAZADA_APP_SECRET", "dummy_api_secret")
 PVICARD_API_TOKEN = os.environ.get(
-    "PVICARD_API_TOKEN", "7ff2ff9939634a3c69b312fbdba467c214714bc91"
+    "PVICARD_API_TOKEN", "7ff2ff9939634a3c69b312fbdba467c214714bc9"
 )
 
 logger = LazadaLogger().get_logger(__name__)
@@ -39,16 +39,22 @@ def main():
 
 
 def handle_sync_order_response(order_number: str, request):
-    request_body = request.json()
     status_code = request.status_code
-    message = request_body.get("message", "Empty error message.")
 
     if status_code == HTTPStatus.OK:
         logger.info(f"Order {order_number} is successfully processed.")
-    else:
+    elif status_code == HTTPStatus.UNAUTHORIZED:
         logger.error(
-            f"Order {order_number} failed with code {status_code}. Error message: {message}"
+            f"Order {order_number} failed with code {status_code}. Invalid API TOKEN"
         )
+    elif status_code == HTTPStatus.INTERNAL_SERVER_ERROR:
+        logger.error(
+            f"Order {order_number} failed with code {status_code}. pvicard server error."
+        )
+    else:
+        request_body = request.json()
+        message = request_body.get("message", "Empty error message.")
+        logger.error(f"Order {order_number} failed with code {status_code}. {message}")
 
 
 if __name__ == "__main__":
