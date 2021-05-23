@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import TimedRotatingFileHandler
 
 
 class LazadaLogger:
@@ -11,7 +12,9 @@ class LazadaLogger:
 
     @staticmethod
     def __get_file_handler():
-        handler = logging.FileHandler("lazada.log")
+        handler = TimedRotatingFileHandler(
+            "lazada.log", backupCount=1, when="D", interval=30
+        )
         handler.setFormatter(LazadaLogger.__get_file_log_formatter())
         return handler
 
