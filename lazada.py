@@ -7,11 +7,11 @@ APP_KEY = os.environ.get("LAZADA_APP_KEY")
 APP_SECRET = os.environ.get("LAZADA_APP_SECRET")
 
 
-logger = LazadaLogger().get_logger()
+logger = LazadaLogger().get_logger("lazada")
 
 
 def main():
-    logger.info("test")
+    logger.info("testasdf")
     # access_token = get_access_token()
     # pending_orders = get_pending_orders(access_token)
     # print(pending_orders)
