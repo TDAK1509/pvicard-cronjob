@@ -1,15 +1,20 @@
 import os
 from lib.lazada import base as lazop
+from models.lazada.logger import LazadaLogger
 
 
 APP_KEY = os.environ.get("LAZADA_APP_KEY")
 APP_SECRET = os.environ.get("LAZADA_APP_SECRET")
 
 
+logger = LazadaLogger().get_logger()
+
+
 def main():
-    access_token = get_access_token()
-    pending_orders = get_pending_orders(access_token)
-    print(pending_orders)
+    logger.info("test")
+    # access_token = get_access_token()
+    # pending_orders = get_pending_orders(access_token)
+    # print(pending_orders)
 
 
 def get_access_token():
