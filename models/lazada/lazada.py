@@ -3,14 +3,15 @@ from lib.lazada import base as lazop
 
 
 class Lazada:
-    __APP_KEY = os.environ.get("LAZADA_APP_KEY", "dummy_api_key")
-    __APP_SECRET = os.environ.get("LAZADA_APP_SECRET", "dummy_api_secret")
+    def __init__(self, app_key: str, app_secret: str):
+        self.__app_key = app_key
+        self.__app_secret = app_secret
 
     def __get_access_token(self):
         api_url_my = "https://api.lazada.com.my/rest"
         refresh_token = os.environ.get("LAZADA_REFRESH_TOKEN")
 
-        client = lazop.LazopClient(api_url_my, self.__APP_KEY, self.__APP_SECRET)
+        client = lazop.LazopClient(api_url_my, self.__app_key, self.__app_secret)
         request = lazop.LazopRequest("/auth/token/refresh")
         request.add_api_param("refresh_token", refresh_token)
         response = client.execute(request)
@@ -21,7 +22,7 @@ class Lazada:
         api_url_vn = "https://api.lazada.vn/rest"
         access_token = self.__get_access_token()
 
-        client = lazop.LazopClient(api_url_vn, self.__APP_KEY, self.__APP_SECRET)
+        client = lazop.LazopClient(api_url_vn, self.__app_key, self.__app_secret)
         request = lazop.LazopRequest("/orders/get", "GET")
 
         request.add_api_param("status", "pending")
