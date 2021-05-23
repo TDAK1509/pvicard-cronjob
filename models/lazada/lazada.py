@@ -15,6 +15,12 @@ class Lazada:
         request = lazop.LazopRequest("/auth/token/refresh")
         request.add_api_param("refresh_token", refresh_token)
         response = client.execute(request)
+
+        if "access_token" not in response.keys():
+            error_code = response["code"]
+            error_message = response["message"]
+            raise ValueError(f"{error_code}: {error_message}")
+
         access_token = response["access_token"]
         return access_token
 

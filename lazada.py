@@ -10,9 +10,12 @@ logger = LazadaLogger().get_logger("lazada")
 
 
 def main():
-    lazada = LazadaApi(APP_KEY, APP_SECRET)
-    pending_orders = lazada.get_pending_orders()
-    print(pending_orders)
+    try:
+        lazada = LazadaApi(APP_KEY, APP_SECRET)
+        pending_orders = lazada.get_pending_orders()
+        print(pending_orders)
+    except Exception as e:
+        logger.error(str(e))
 
 
 if __name__ == "__main__":
