@@ -11,7 +11,7 @@ class LazadaLogger:
 
     @staticmethod
     def __get_file_handler():
-        handler = logging.FileHandler("test.log")
+        handler = logging.FileHandler("lazada.log")
         handler.setFormatter(LazadaLogger.__get_file_log_formatter())
         return handler
 
