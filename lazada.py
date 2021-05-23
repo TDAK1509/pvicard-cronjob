@@ -1,6 +1,5 @@
 import os
 
-from http import HTTPStatus
 from models.lazada.logger import LazadaLogger
 from models.lazada.lazada import Lazada as LazadaApi
 from models.lazada.pvicard import PviCard
@@ -32,15 +31,7 @@ def main():
         pvi_card = PviCard(PVICARD_API_TOKEN)
 
         for order in pending_orders:
-            status_code, message = pvi_card.sync_orders(**order)
-            order_number = order["order_number"]
-
-            if status_code == HTTPStatus.OK:
-                logger.info(f"Order {order_number} is successfully processed.")
-            else:
-                logger.error(
-                    f"Order {order_number} failed with code {status_code}. Error message: {message}"
-                )
+            pvi_card.sync_orders(**order)
     except Exception as e:
         logger.exception(str(e))
 
