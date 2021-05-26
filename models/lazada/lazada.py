@@ -29,17 +29,20 @@ class Lazada:
         orders_details = []
 
         for order_number in pending_order_numbers:
-            order_items = self.__get_order_items(order_number)
-            email = order_items[0]["digital_delivery_info"]
-            sku_list = [item["sku"] for item in order_items]
-            code_prefix_list = [sku[0:3] for sku in sku_list]
-            order_detail = {
-                "email": email,
-                "order_number": order_number,
-                "code_prefix_list": ",".join(code_prefix_list),
-            }
+            order_detail = self.__extract_information_from_order_number(order_number)
             orders_details.append(order_detail)
         return orders_details
+
+    def __extract_information_from_order_number(self, order_number: str):
+        order_items = self.__get_order_items(order_number)
+        email = order_items[0]["digital_delivery_info"]
+        code_prefix_list = [item["sku"][0:3] for item in order_items]
+        order_detail = {
+            "email": email,
+            "order_number": order_number,
+            "code_prefix_list": ",".join(code_prefix_list),
+        }
+        return order_detail
 
     def __get_order_items(self, order_number: str):
         # client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
