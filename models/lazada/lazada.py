@@ -40,7 +40,7 @@ class Lazada:
         order_detail = {
             "email": email,
             "order_number": order_number,
-            "code_prefix_list": ",".join(code_prefix_list),
+            "code_prefix_list_comma_separated": ",".join(code_prefix_list),
         }
         return order_detail
 

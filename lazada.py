@@ -20,10 +20,6 @@ def main():
         lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET)
         pending_orders = lazada.get_pending_orders_details()
 
-        print(pending_orders)
-
-        return
-
         pvi_card = PviCard(PVICARD_API_TOKEN)
 
         for order in pending_orders:
