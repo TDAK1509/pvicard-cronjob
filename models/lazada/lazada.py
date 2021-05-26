@@ -33,4 +33,7 @@ class Lazada:
         request.add_api_param("created_after", "2021-01-01T01:00:00+07:00")
         response = client.execute(request, self.__access_token)
 
-        return list(response["data"]["orders"])
+        orders = list(response["data"]["orders"])
+        order_numbers = [order["order_number"] for order in orders]
+
+        return order_numbers
