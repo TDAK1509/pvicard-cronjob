@@ -22,10 +22,13 @@ def main():
         pending_orders = [
             {
                 "email": "dbcgdhh@gmail.com",
-                "phone": "123456",
                 "order_number": "21",
-                "code_prefix": "C41",
-                "customer_name": "Khuong",
+                "code_prefix_list_comma_separated": "EM1",
+            },
+            {
+                "email": "dbcgdhh@gmail.com",
+                "order_number": "22",
+                "code_prefix_list_comma_separated": "EM2,EM1",
             },
         ]
 

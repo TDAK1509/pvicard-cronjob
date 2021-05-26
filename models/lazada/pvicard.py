@@ -8,19 +8,15 @@ class PviCard:
     def sync_orders(
         self,
         email: str,
-        phone: str,
         order_number: str,
-        code_prefix: str,
-        customer_name: str,
+        code_prefix_list_comma_separated: str,
     ):
-        request_url = "https://pvicard.com/api/merchant/sync-orders/lazada/"
+        request_url = "https://pvicard.com/api/merchant/sync-orders/api_lazada/"
 
         request_data = {
             "email": email,
-            "phone": phone,
             "order_number": order_number,
-            "code_prefix": code_prefix,
-            "customer_name": customer_name,
+            "code_prefix_list": code_prefix_list_comma_separated,
         }
         response = requests.post(
             request_url,
