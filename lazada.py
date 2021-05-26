@@ -25,6 +25,8 @@ def main():
         for order in pending_orders:
             response = pvi_card.sync_orders(**order)
             handle_sync_order_response(order["order_number"], response)
+
+        logger.info(f"Task DONE for orders {pending_orders}")
     except Exception as e:
         logger.exception(str(e))
 
