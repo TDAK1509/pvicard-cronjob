@@ -7,7 +7,7 @@ class Lazada:
         self.__api_url = "https://api.lazada.vn/rest"
         self.__app_key = app_key
         self.__app_secret = app_secret
-        # self.__get_access_token()
+        self.__get_access_token()
 
     def __get_access_token(self):
         refresh_token = os.environ.get("LAZADA_REFRESH_TOKEN")
@@ -45,131 +45,15 @@ class Lazada:
         return order_detail
 
     def __get_order_items(self, order_number: str):
-        # client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
-        # request = lazop.LazopRequest("/order/items/get", "GET")
+        client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
+        request = lazop.LazopRequest("/order/items/get", "GET")
 
-        # request.add_api_param("order_id", order_number)
-        # response = client.execute(request, self.__access_token)
-        response = {
-            "data": [
-                {
-                    "tax_amount": 0.00,
-                    "reason": "",
-                    "sla_time_stamp": "2021-05-27T23:59:59+07:00",
-                    "purchase_order_id": "",
-                    "voucher_seller": 0,
-                    "voucher_code_seller": "",
-                    "voucher_code": "",
-                    "package_id": "",
-                    "variation": "",
-                    "voucher_code_platform": "",
-                    "purchase_order_number": "",
-                    "sku": "C416535254-1621475329737-0",
-                    "invoice_number": "25",
-                    "order_type": "Normal",
-                    "cancel_return_initiator": "null-null",
-                    "shop_sku": "1306535254_VNAMZ-5058631360",
-                    "is_reroute": 0,
-                    "stage_pay_status": "",
-                    "tracking_code_pre": "",
-                    "order_item_id": 288480920219609,
-                    "shop_id": "The Phong",
-                    "order_flag": "NORMAL",
-                    "is_fbl": 0,
-                    "name": "Toàn Quốc [E-Voucher] Bảo Hiểm Bắt Buộc Trách Nhiệm Dân Sự -Xe Mô Tô 2 bánh trên 50 cc - 1 năm",
-                    "delivery_option_sof": 0,
-                    "order_id": 288480920119609,
-                    "status": "delivered",
-                    "paid_price": 66000.00,
-                    "product_main_image": "https://vn-live.slatic.net/p/mdc/74e42d6f6450f16e72a0a8df32d46b92.jpg",
-                    "voucher_platform": 0,
-                    "product_detail_url": "https://www.lazada.vn/products/i1306535254-s5058631360.html?urlFlag=true&mp=1",
-                    "promised_shipping_time": "",
-                    "warehouse_code": "dropshipping",
-                    "shipping_type": "Dropshipping",
-                    "created_at": "2021-05-25 14:02:38 +0700",
-                    "shipping_fee_discount_platform": 0,
-                    "wallet_credits": 0,
-                    "updated_at": "2021-05-25 14:58:24 +0700",
-                    "currency": "VND",
-                    "shipping_provider_type": "digital",
-                    "shipping_fee_original": 0.00,
-                    "is_digital": 1,
-                    "item_price": 66000.00,
-                    "shipping_service_cost": 0,
-                    "tracking_code": "",
-                    "shipping_fee_discount_seller": 0,
-                    "shipping_amount": 0.00,
-                    "reason_detail": "",
-                    "return_status": "",
-                    "shipment_provider": "",
-                    "voucher_amount": 0,
-                    "digital_delivery_info": "dbcgdhh@gmail.com",
-                    "extra_attributes": "",
-                },
-                {
-                    "tax_amount": 0.00,
-                    "reason": "",
-                    "sla_time_stamp": "2021-05-27T23:59:59+07:00",
-                    "purchase_order_id": "",
-                    "voucher_seller": 0,
-                    "voucher_code_seller": "",
-                    "voucher_code": "",
-                    "package_id": "",
-                    "variation": "",
-                    "voucher_code_platform": "",
-                    "purchase_order_number": "",
-                    "sku": "C416535254-1621475329737-0",
-                    "invoice_number": "25",
-                    "order_type": "Normal",
-                    "cancel_return_initiator": "null-null",
-                    "shop_sku": "116535254_VNAMZ-5058631360",
-                    "is_reroute": 0,
-                    "stage_pay_status": "",
-                    "tracking_code_pre": "",
-                    "order_item_id": 288480920219609,
-                    "shop_id": "The Phong",
-                    "order_flag": "NORMAL",
-                    "is_fbl": 0,
-                    "name": "Toàn Quốc [E-Voucher] Bảo Hiểm Bắt Buộc Trách Nhiệm Dân Sự -Xe Mô Tô 2 bánh trên 50 cc - 1 năm",
-                    "delivery_option_sof": 0,
-                    "order_id": 288480920119609,
-                    "status": "delivered",
-                    "paid_price": 66000.00,
-                    "product_main_image": "https://vn-live.slatic.net/p/mdc/74e42d6f6450f16e72a0a8df32d46b92.jpg",
-                    "voucher_platform": 0,
-                    "product_detail_url": "https://www.lazada.vn/products/i1306535254-s5058631360.html?urlFlag=true&mp=1",
-                    "promised_shipping_time": "",
-                    "warehouse_code": "dropshipping",
-                    "shipping_type": "Dropshipping",
-                    "created_at": "2021-05-25 14:02:38 +0700",
-                    "shipping_fee_discount_platform": 0,
-                    "wallet_credits": 0,
-                    "updated_at": "2021-05-25 14:58:24 +0700",
-                    "currency": "VND",
-                    "shipping_provider_type": "digital",
-                    "shipping_fee_original": 0.00,
-                    "is_digital": 1,
-                    "item_price": 66000.00,
-                    "shipping_service_cost": 0,
-                    "tracking_code": "",
-                    "shipping_fee_discount_seller": 0,
-                    "shipping_amount": 0.00,
-                    "reason_detail": "",
-                    "return_status": "",
-                    "shipment_provider": "",
-                    "voucher_amount": 0,
-                    "digital_delivery_info": "dbcgdhh@gmail.com",
-                    "extra_attributes": "",
-                },
-            ],
-            "code": "0",
-            "request_id": "0b1187a316220310876901323",
-        }
+        request.add_api_param("order_id", order_number)
+        response = client.execute(request, self.__access_token)
+
         return list(response["data"])
 
     def __get_pending_orders(self):
-        return ["288480920119609"]
         client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
         request = lazop.LazopRequest("/orders/get", "GET")
 
