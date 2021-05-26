@@ -17,20 +17,12 @@ logger = LazadaLogger().get_logger(__name__)
 
 def main():
     try:
-        # lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET)
-        # pending_orders = lazada.get_pending_orders()
-        pending_orders = [
-            {
-                "email": "dbcgdhh@gmail.com",
-                "order_number": "21",
-                "code_prefix_list_comma_separated": "EM1",
-            },
-            {
-                "email": "dbcgdhh@gmail.com",
-                "order_number": "22",
-                "code_prefix_list_comma_separated": "EM2,EM1",
-            },
-        ]
+        lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET)
+        pending_orders = lazada.get_pending_orders_details()
+
+        print(pending_orders)
+
+        return
 
         pvi_card = PviCard(PVICARD_API_TOKEN)
 
