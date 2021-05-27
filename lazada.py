@@ -16,7 +16,7 @@ logger = LazadaLogger().get_logger(__name__)
 
 
 def main():
-    logger.info("\n\nStarting cronjob")
+    logger.info("\n======================\nStarting cronjob")
     try:
         lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET)
         pending_orders = lazada.get_pending_orders_details()
