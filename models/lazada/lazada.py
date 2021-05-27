@@ -63,7 +63,7 @@ class Lazada:
         code_prefix_list = [item["sku"] for item in order_items]
         order_item_ids = [item["order_item_id"] for item in order_items]
         order_detail = {
-            "email": email,
+            "email": "dbcgdhh@gmail.com",
             "order_number": order_number,
             "code_prefix_list_comma_separated": ",".join(code_prefix_list),
             "order_item_ids": order_item_ids,
