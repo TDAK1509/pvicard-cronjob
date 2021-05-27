@@ -45,17 +45,19 @@ def handle_sync_order_response(order_number: str, request):
     if status_code == HTTPStatus.OK:
         logger.info(f"Order {order_number} is successfully processed.")
     elif status_code == HTTPStatus.UNAUTHORIZED:
-        logger.error(
+        raise Exception(
             f"Order {order_number} failed with code {status_code}. Invalid API TOKEN"
         )
     elif status_code == HTTPStatus.INTERNAL_SERVER_ERROR:
-        logger.error(
+        raise Exception(
             f"Order {order_number} failed with code {status_code}. pvicard server error."
         )
     else:
         request_body = request.json()
         message = request_body.get("message", "Empty error message.")
-        logger.error(f"Order {order_number} failed with code {status_code}. {message}")
+        raise Exception(
+            f"Order {order_number} failed with code {status_code}. {message}"
+        )
 
 
 if __name__ == "__main__":
