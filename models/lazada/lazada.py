@@ -88,7 +88,7 @@ class Lazada:
 
         request.add_api_param("order_id", order_number)
         request.add_api_param("delivery_type", "dropship")
-        request.add_api_param("order_item_ids", order_item_ids)
+        request.add_api_param("order_item_ids", f"[{','.join(order_item_ids)}]")
         request.add_api_param("shipment_provider", "LEX_VN")
         request.add_api_param("tracking_number", "123")
         response = client.execute(request, self.__access_token)
