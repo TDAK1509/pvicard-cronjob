@@ -23,8 +23,18 @@ def main():
         pvi_card = PviCard(PVICARD_API_TOKEN)
 
         for order in pending_orders:
-            response = pvi_card.sync_orders(**order)
-            handle_sync_order_response(order["order_number"], response)
+            order_number = order["order_number"]
+            response = pvi_card.sync_orders(
+                email=order["email"],
+                order_number=order_number,
+                code_prefix_list_comma_separated=order[
+                    "code_prefix_list_comma_separated"
+                ],
+            )
+            handle_sync_order_response(order_number, response)
+            pvi_card.set_order_status_ready_to_ship(
+                order_number, order["order_item_ids"]
+            )
 
         logger.info(f"Task DONE for orders {pending_orders}")
     except Exception as e:

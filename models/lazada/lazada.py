@@ -60,11 +60,13 @@ class Lazada:
         logger.info(f"Extracting information from order {order_number}")
         order_items = self.__get_order_items(order_number)
         email = order_items[0]["digital_delivery_info"]
-        code_prefix_list = [item["sku"][0:3] for item in order_items]
+        code_prefix_list = [item["sku"] for item in order_items]
+        order_item_ids = [item["order_item_id"] for item in order_items]
         order_detail = {
             "email": email,
             "order_number": order_number,
             "code_prefix_list_comma_separated": ",".join(code_prefix_list),
+            "order_item_ids": order_item_ids,
         }
         logger.info(f"Finish extracting information from order {order_number}")
         return order_detail
@@ -78,3 +80,18 @@ class Lazada:
         response = client.execute(request, self.__access_token)
         logger.info(f"Finish making API request to Lazada for order {order_number}")
         return list(response["data"])
+
+    def set_order_status_ready_to_ship(self, order_number: str, order_item_ids: list):
+        logger.info(f"Change order status to ready to ship for order {order_number}")
+        client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
+        request = lazop.LazopRequest("/order/rts")
+
+        request.add_api_param("order_id", order_number)
+        request.add_api_param("delivery_type", "dropship")
+        request.add_api_param("order_item_ids", order_item_ids)
+        request.add_api_param("shipment_provider", "LEX_VN")
+        request.add_api_param("tracking_number", "123")
+        response = client.execute(request, self.__access_token)
+        logger.info(
+            f"Finish changing order status to ready to ship for order {order_number}"
+        )
