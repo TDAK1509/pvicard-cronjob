@@ -1,4 +1,3 @@
-import os
 from lib.lazada import base as lazop
 from models.lazada.logger import LazadaLogger
 
@@ -7,19 +6,19 @@ logger = LazadaLogger().get_logger(__name__)
 
 
 class Lazada:
-    def __init__(self, app_key: str, app_secret: str):
+    def __init__(self, app_key: str, app_secret: str, refresh_token: str):
         self.__api_url = "https://api.lazada.vn/rest"
         self.__app_key = app_key
         self.__app_secret = app_secret
+        self.__refresh_token = refresh_token
         self.__get_access_token()
 
     def __get_access_token(self):
         logger.info("Getting access token")
-        refresh_token = os.environ.get("LAZADA_REFRESH_TOKEN")
 
         client = lazop.LazopClient(self.__api_url, self.__app_key, self.__app_secret)
         request = lazop.LazopRequest("/auth/token/refresh")
-        request.add_api_param("refresh_token", refresh_token)
+        request.add_api_param("refresh_token", self.__refresh_token)
         response = client.execute(request)
 
         if "access_token" not in response.keys():
