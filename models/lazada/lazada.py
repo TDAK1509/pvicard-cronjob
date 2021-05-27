@@ -59,8 +59,8 @@ class Lazada:
         logger.info(f"Extracting information from order {order_number}")
         order_items = self.__get_order_items(order_number)
         email = order_items[0]["digital_delivery_info"]
-        code_prefix_list = [item["sku"] for item in order_items]
-        order_item_ids = [item["order_item_id"] for item in order_items]
+        code_prefix_list = [str(item["sku"]) for item in order_items]
+        order_item_ids = [str(item["order_item_id"]) for item in order_items]
         order_detail = {
             "email": email,
             "order_number": order_number,
