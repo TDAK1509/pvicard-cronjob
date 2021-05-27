@@ -1,4 +1,4 @@
-import os
+import getopt, sys
 
 from http import HTTPStatus
 from models.lazada.logger import LazadaLogger
@@ -6,11 +6,28 @@ from models.lazada.lazada import Lazada as LazadaApi
 from models.lazada.pvicard import PviCard
 
 
-LAZADA_APP_KEY = os.environ.get("LAZADA_APP_KEY", "dummy_api_key")
-LAZADA_APP_SECRET = os.environ.get("LAZADA_APP_SECRET", "dummy_api_secret")
-PVICARD_API_TOKEN = os.environ.get(
-    "PVICARD_API_TOKEN", "7ff2ff9939634a3c69b312fbdba467c214714bc9"
+command_line_args = sys.argv[1:]
+opts, args = getopt.getopt(
+    command_line_args,
+    "k:s:t:rf",
+    [
+        "lazada-app-key=",
+        "lazada-app-secret=",
+        "lazada-refresh-token=",
+        "pvicard-api-token=",
+    ],
 )
+
+for key, value in opts:
+    if key in ("-k", "--lazada-app-key"):
+        LAZADA_APP_KEY = value
+    elif key in ("-s", "--lazada-app-secret"):
+        LAZADA_APP_SECRET = value
+    elif key in ("-t", "--lazada-refresh-token"):
+        LAZADA_REFRESH_TOKEN = value
+    elif key in ("-t", "--pvicard-api-token"):
+        PVICARD_API_TOKEN = value
+
 
 logger = LazadaLogger().get_logger(__name__)
 
@@ -18,7 +35,7 @@ logger = LazadaLogger().get_logger(__name__)
 def main():
     logger.info("\n======================\nStarting cronjob")
     try:
-        lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET)
+        lazada = LazadaApi(LAZADA_APP_KEY, LAZADA_APP_SECRET, LAZADA_REFRESH_TOKEN)
         pending_orders = lazada.get_pending_orders_details()
 
         pvi_card = PviCard(PVICARD_API_TOKEN)
