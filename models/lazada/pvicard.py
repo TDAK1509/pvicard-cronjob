@@ -1,6 +1,7 @@
 import requests
 
 from models.lazada.logger import LazadaLogger
+from http import HTTPStatus
 
 
 logger = LazadaLogger().get_logger(__name__)
@@ -45,5 +46,11 @@ class PviCard:
             request_url,
             headers={"Authorization": f"Token {self.__api_token}"},
         )
+
+        if response.status_code != HTTPStatus.OK:
+            raise Exception(response.text)
+
+        json = response.json()
+        refresh_token = json["refresh_token"]
         logger.info("Done fetching refresh token from pvicard.com database")
-        return response.text
+        return refresh_token
