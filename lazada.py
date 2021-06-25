@@ -30,7 +30,7 @@ logger = LazadaLogger().get_logger(__name__)
 
 
 def main():
-    logger.info("\n======================\nStarting cronjob")
+    logger.info("Starting cronjob")
     try:
         pvi_card = PviCard(PVICARD_API_TOKEN)
         lazada_refresh_token = pvi_card.fetch_refresh_token()
