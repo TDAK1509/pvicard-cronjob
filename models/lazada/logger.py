@@ -14,7 +14,7 @@ class LazadaLogger:
     def __get_cloudwatch_handler(s3_profile_name: str = None):
         s3 = boto3.session.Session(profile_name=s3_profile_name)
         handler = watchtower.CloudWatchLogHandler(
-            log_group="pvicard_cronjob", boto3_session=s3
+            log_group="pvicard", stream_name="cronjob", boto3_session=s3
         )
         handler.setFormatter(LazadaLogger.__get_file_log_formatter())
         return handler
