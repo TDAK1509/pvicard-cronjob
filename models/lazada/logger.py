@@ -7,7 +7,7 @@ class LazadaLogger:
     def get_logger(logger_name: str = __name__):
         logger = logging.getLogger(logger_name)
         logger.setLevel(logging.INFO)
-        logger.addHandler(LazadaLogger.__get_cloudwatch_handler("private"))
+        logger.addHandler(LazadaLogger.__get_cloudwatch_handler())
         return logger
 
     @staticmethod
