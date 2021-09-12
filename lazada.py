@@ -71,9 +71,7 @@ def handle_sync_order_response(order_number: str, response):
     else:
         request_body = response.json()
         message = request_body.get("message", "Empty error message.")
-        raise Exception(
-            f"Order {order_number} failed with code {status_code}. {message}"
-        )
+        logger.info(f"Skip order {order_number} because it failed with code {status_code}. {message}")
 
 
 if __name__ == "__main__":
