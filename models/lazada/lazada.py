@@ -24,6 +24,7 @@ class Lazada:
         if "access_token" not in response.keys():
             error_code = response["code"]
             error_message = response["message"]
+            logger.error(f"Error getting access token. Message: {error_message}")
             raise ValueError(f"{error_code}: {error_message}")
 
         self.__access_token = response["access_token"]
@@ -48,9 +49,11 @@ class Lazada:
         request.add_api_param("status", "pending")
         request.add_api_param("created_after", "2021-01-01T01:00:00+07:00")
         response = client.execute(request, self.__access_token)
+        logger.info(f"Response: {response}")
 
         orders = list(response["data"]["orders"])
         order_numbers = [order["order_number"] for order in orders]
+        logger.info(f"Order numbers: {order_numbers}")
         logger.info("Finish getting pending orders from Lazada")
 
         return order_numbers
@@ -67,7 +70,7 @@ class Lazada:
             "code_prefix_list_comma_separated": ",".join(code_prefix_list),
             "order_item_ids": order_item_ids,
         }
-        logger.info(f"Finish extracting information from order {order_number}")
+        logger.info(f"Finish extracting information from order {order_number}. Order details: {order_detail}")
         return order_detail
 
     def __get_order_items(self, order_number: str):
@@ -77,7 +80,7 @@ class Lazada:
 
         request.add_api_param("order_id", order_number)
         response = client.execute(request, self.__access_token)
-        logger.info(f"Finish making API request to Lazada for order {order_number}")
+        logger.info(f"Finish making API request to Lazada for order {order_number}. Response {response}")
         return list(response["data"])
 
     def set_order_status_ready_to_ship(self, order_number: str, order_item_ids: list):
@@ -92,5 +95,5 @@ class Lazada:
         request.add_api_param("tracking_number", "123")
         response = client.execute(request, self.__access_token)
         logger.info(
-            f"Finish changing order status to ready to ship for order {order_number}"
+            f"Finish changing order status to ready to ship for order {order_number}. Response {response}"
         )
